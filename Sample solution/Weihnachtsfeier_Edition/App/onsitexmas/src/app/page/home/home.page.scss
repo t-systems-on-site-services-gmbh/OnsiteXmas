@@ -1,0 +1,75 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-weight: 100;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+// My Code 
+ion-header{
+  ion-toolbar, ion-item{
+    --background: var(--ion-color-primary);
+    background: var(--ion-color-primary);;
+    padding: 0 10px;
+  }
+
+  ion-toolbar{
+    .bordered{
+      --border-radius: 10px;
+    }
+  }
+
+  ion-item{
+    padding: 4px 10px 20px 10px;
+    border-radius: 0 0 40px 40px;
+    img {
+      width: 500px;
+      margin: 0 auto;
+    }
+  }
+}
+
+ion-content{
+  .just{
+    text-align: justify;
+  }
+  h2, center{
+    margin: 10%;
+    padding: 0 5%;
+    text-align: center
+  }
+  p{
+    padding: 0 5%;
+  }
+}
+
+ion-footer{
+  ion-button{
+    padding: 0 5%;
+    bottom: 5%;
+    position: fixed;
+    width: 100%;
+  }
+}

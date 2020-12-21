@@ -1,0 +1,14 @@
+{
+  "appId": "de.tsystems.onsite.xmas",
+  "appName": "xmas",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "launchAutoHide": true
+    }
+  },
+  "cordova": {}
+}

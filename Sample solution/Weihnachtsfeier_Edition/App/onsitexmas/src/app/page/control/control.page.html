@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-item lines="none"></ion-item>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="scan" (click)="Disconnect()"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="peripheral" class="ion-text-center">
+      {{ peripheral.name || 'Unnamed' }}
+    </ion-title>
+    <span slot="end"></span>
+    <ion-toggle slot="end" color="dark" (ionChange)="powerChanged($event.detail)" checked="true"></ion-toggle>
+  </ion-toolbar>
+  <ion-item>
+    <ion-range min="1" max="150" color="dark" [(ngModel)]="brightness" (ionChange)="brightnessChanged(brightness)" debounce="30">
+      <ion-icon size="small" slot="start" name="sunny"></ion-icon>
+      <ion-icon slot="end" name="sunny"></ion-icon>
+    </ion-range>
+  </ion-item>
+</ion-header>
+
+<ion-content>
+  <!-- Segment View-->
+  <ion-grid *ngIf="segmentModel === 'view'" class="view">
+    <ion-row>
+      <ion-card-header>
+        <ion-row justify-content-between>
+          <ion-col>      
+            <span item-left>Power:</span>
+          </ion-col>
+          <ion-col>
+            <ion-badge style="float:right" [color]="status === 'off' ? 'primary' : 'success'">{{status}}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-row>
+    <ion-row>
+      <ion-card-header>
+        <ion-row justify-content-between>
+          <ion-col>      
+            <span item-left>Intensity:</span>
+          </ion-col>
+          <ion-col>
+            <ion-badge color="primary">{{brightness}}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-row>
+    <ion-row>
+      <ion-card-header>
+        <ion-row justify-content-between>
+          <ion-col>      
+            <span item-left>Color:</span>
+          </ion-col>
+          <ion-col class="my-thin-col" [(colorPicker)]="background" [style.background]="background"
+          [cpPositionRelativeToArrow]="true" [cpPosition]="'left'"
+          [cpOKButton]="true" [cpCancelButton]="true" [cpOutputFormat]="'rgba'" 
+          (colorPickerChange)="colorPicker($event)"></ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Segment Profile-->
+  <ion-grid *ngIf="segmentModel === 'profile'" class="profile">
+    <ion-row>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'red')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('255,0,0','red')">   
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: red;"></ion-icon>
+          <div>red</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'orange')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('255,125,0','orange')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: orange;"></ion-icon>
+          <div>orange</div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'yellow')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('255,255,0','yellow')"> 
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: yellow;"></ion-icon>
+          <div>yellow</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'lime')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('125,255,0', 'lime')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: rgb(125,255,0);"></ion-icon>
+          <div>lime</div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'green')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('0,255,0', 'green')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: green;"></ion-icon>
+          <div>green</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'turquoise')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('0,255,125', 'turquoise')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: rgb(0,255,125);;"></ion-icon>
+          <div>turquoise</div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'cyan')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('0,255,255', 'cyan')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: cyan;"></ion-icon>
+          <div>cyan</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'ocean')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('0,125,255', 'ocean')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: rgb(0,125,255);"></ion-icon>
+          <div>ocean</div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'blue')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('0,0,255', 'blue')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: blue;"></ion-icon>
+          <div>blue</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'violet')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('125,0,255', 'violet')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: rgb(125,0,255);"></ion-icon>
+          <div>violet</div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'magenta')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('255,0,255', 'magenta')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: magenta;"></ion-icon>
+          <div>magenta</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [ngClass]="(active === 'raspberry')? 'button-solid': 'button-outline'" expand="block" (click)="colorProfile('255,0,125', 'raspberry')">
+          <ion-icon name="ellipse-outline" slot="start" style="background-color: rgb(255,0,125);"></ion-icon>
+          <div>raspberry</div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer mode="md">
+  <ion-segment [(ngModel)]="segmentModel" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="view">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>View</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="profile">
+      <ion-icon name="grid-outline"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-footer>

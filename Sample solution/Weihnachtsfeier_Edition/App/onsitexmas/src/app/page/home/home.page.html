@@ -1,0 +1,30 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button class="bordered" fill="solid" color="light-zero" (click)="singleClick()" (dblclick)="doubleClick()">
+          <ion-icon src="assets/svg/signature.svg"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+  <ion-item lines="none">
+    <img src="assets/svg/welcome_icon.svg">
+  </ion-item>
+</ion-header>
+
+
+<ion-content [scrollEvents]="true">
+  <ion-text>
+    <h2>Welcome!</h2>
+    <p class="just">
+      A small team of elves want to make the best out of the current situation. 
+      We can’t celebrate together but we still can connect digitally; 
+      like this app does with our smart Christmas decoration. 
+      We wish you all the best, stay healthy and a merry Christmas.
+    </p>
+    <P>Please make sure your Bluetooth is activated!</P>
+  </ion-text>
+</ion-content>
+
+<ion-footer>
+  <ion-button (click)="navigateToScan()" color="primary" fill="solid" shape="round" expand="block">Scan</ion-button>
+</ion-footer>
